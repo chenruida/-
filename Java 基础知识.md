@@ -79,7 +79,7 @@ Package(英文小写数字)
 
 内存图
 
-![](D:\用户目录\我的文档\java_learning_notes\picture\数组内存.jpg)
+![](.\picture\数组内存.jpg)
 
 
 
@@ -189,7 +189,7 @@ java.lang包下的内容不要导包，其他都需要import语句。
   - 引用类型，==比较的是地址
 - 在堆当中
 
-![](D:\用户目录\我的文档\java_learning_notes\picture\字符串内存.png)
+![](.\picture\字符串内存.png)
 
 方法
 
@@ -221,7 +221,7 @@ java.lang包下的内容不要导包，其他都需要import语句。
 - 静态方法不能用this关键字
 - 方法区中有一块单独的静态区
 
-![](D:\用户目录\我的文档\java_learning_notes\picture\静态成员内存.jpg)
+![](.\picture\静态成员内存.jpg)
 
 ## 数组工具类 Arrays
 
@@ -535,7 +535,7 @@ java中提供的一种容器，可以用来存储多个数据
 - HashSet
 - LinkedHashSet
 
-![](D:\用户目录\我的文档\java_learning_notes\picture\集合框架.jpg)
+![](.\picture\集合框架.jpg)
 
 ### 迭代器
 
@@ -697,7 +697,7 @@ Entry
 - 映射项，在Map接口中有一个内部接口Entry
 - 当Map集合一创建，纳闷就会在Map集合中创建一个Entry对象，用来记录键与值
 
-![](D:\用户目录\我的文档\java_learning_notes\picture\entry.jpg)
+![](.\picture\entry.jpg)
 
 存储自定义对象
 
@@ -903,5 +903,196 @@ public class xxxException wxtends Exception | RuntimeException{
 
 ## 线程的状态
 
-![](D:\用户目录\我的文档\java_learning_notes\picture\线程状态.jpg)
+![](.\picture\线程状态.jpg)
+
+### 无限等待（waiting）
+
+一个正在无限期等待另一个线程执行一个特别的（唤醒）动作的线程处于之一状态
+
+object.wait(锁对象)
+
+object.notify(唤醒) 
+
+### 等待唤醒机制
+
+多个线程在处理同一个资源，但是处理的动作（线程的任务）却不相同
+
+为什么要处理线程间的通信：
+
+- 多个线程并发执行时，在默认情况下CPU时随机切换线程的，但当我们需要多个线程来共同完成一件任务，并且我们希望他们有规律的执行，那么多线程之间需要一些协调通信，以此来帮我们达到多线程共同操作一份数据
+
+### 线程池
+
+- 就是一个集合(LinkedList<Thread>)
+- 当程序第一次启动的时候，创建多个线程，保存到一个集合中
+- Thread t = linked.removeFist(); Thread t = list.removed(0);
+- list.add(t); linked.addLast(t);
+- Jdk1.5之后已经
+
+#### 用法
+
+java.util.concurrent.Executor:线程池的工厂类，用来生成线程池
+
+Executors类中的静态方法：
+
+​	static ExecutorService newFixedThreadPool(int nThreads) 创建一个可重用固定线程数的线程池
+
+ExecutorService 接口，返回的时ExecutorService 接口的实现类对象，我们可以使用ExecutorService 接口接受
+
+使用步骤：
+
+1. 使用线程工厂类Executors里面提供的静态方法newFixedThreadPool是生产一个指定线程数量的线程池
+2. 创建一个类，实现Runnable接口，重写run方法，设置线程任务
+3. 调用ExecutorService中的方法submit ，传递线程任务（实现类），开启线程，执行run方法
+4. 调用ExecutorService中的方法shutdown销毁线程池（不建议执行）
+
+## 函数式表达式（JDK1.8)
+
+只要能获取到结果，不在乎中间过程
+
+格式：
+
+```
+(一些参数)->{代码}
+```
+
+（）接口中抽象方法的参数列表，没有参数，就空着；有参数就写出参数，多个参数使用逗号分隔
+
+简化书写：
+
+1. 小括号内参数的类型可以省略
+2. 如果小括号内有且仅有一个参，则小括号可以省略
+3. 如果大括号内有且仅有一个语句，无论是否有返回值，都可以省略大括号、return关键字机语句分号
+
+## File类
+
+### 构造方法
+
+### 方法
+
+1. 获取
+   1. long length() 文件的大小，文件夹和无效文件都返回0
+2. 判断
+   1. exists() 是否存在
+   2. isDirectory() 是否为目录
+   3. isFile() 是否为文件
+3. 删除和创建
+   1. cerateNewFile() 创建一个新的空文件
+   2. delete() 删除此File的文件或目录
+   3. mkdir() 创建由此File表示的目录
+   4. mkdirs() 创建由此File表示的目录,包括任何必须但不存在的父目录
+
+### 目录遍历
+
+1. String list()
+   1. 
+2. File[] listFiles()
+
+注意:
+
+1. list方法和listFiles方法遍历的是构造方法中给出的目录
+2. 如果构造方法中给出的路径不存在或者不是一个目录，就会抛出空指针
+3. 能够获取隐藏文件
+
+
+
+## 递归
+
+自己调用自己
+
+注意事项：
+
+1. 递归分位两类，直接递归和简介递归
+2. 递归一定要油条剪子限定，能够保证递归停下来
+3. 递归次数不能太多
+4. 构造方法，禁止递归
+
+
+
+## IO
+
+### 字节流
+
+java.io.OutputStream:字节输出流
+
+定义了一些子类共性的成员方法：
+
+- public void close():关闭此输出流并释放与此流相关联的任何系统资源
+- public void flush():刷新此输出流并强制任何缓冲的输出字节被写出
+- public void write(byte[] b)：将b.length字节从指定的字节数组写入此输出流
+- public void write(byte[] b, int off,int len):从指定的字节数组写入len字节，从偏移量off开始输出到此输出流。
+- public abstract void write(int b):将指定的字节输出流
+
+
+
+
+
+java.io.FileOutputStream extends OutputStream
+
+FileOutputStream:文件字节输出流
+
+- 作用：把内存中的数据写入到硬盘的文件中
+
+- 构造方法：
+  - FileOutputStream(String name,boolean append)创建一个向具有指定名称的文件中写入数据的输出文件流
+  - FileOutputStream(File file,boolean append)创建一个向指定File对象标识的文件中写入数据的文件输入流
+
+#### 字节输出流的使用步骤：
+
+1. 创建一个FileOutputStream对象,构造方法中传递写入数据的目的地
+2. 调用FileOutputStream对象中的方法write,把数据写入到文件中
+3. 释放资源
+
+- 如果写的第一个自己是正数（0-127），那么显示的时候会查询ASCII表
+- 如果写的第一个字节是负数，那么第一个字节和第二个字节，两个字节组成一个中文显示，查询系统默认码表（GBK）
+
+
+
+#### 读取
+
+java.io.InputStream:字节输入流
+
+此抽象类是表示字节输入流的所有类的超类
+
+定义了所有子类共性的方法：
+
+​	int read() 从输入流中读取数据下一个字节
+
+​	int read(byte[] b)从输入流中读取一定数量的字节，并将其存储在缓冲区数组b中
+
+   void close() 关闭此输入流并释放与该流关联的所有系统资源。
+
+
+
+
+
+java.io.FileInputStream extends InputStream
+
+FileInputStream 文件自己输入流
+
+构造方法：
+
+### 字符流
+
+java.io.Reade 字符输入流的超类，定义了一些公用的成员方法 
+
+java.io.Writer 字符输出流的超类
+
+### flush方法和close方法的区别
+
+flush 刷新进去后还可以继续使用，close之后就不能继续使用了
+
+### 异常处理
+
+- 在jdk1.7之前使用try catch finally 处理流中的异常，需要将流对象提高作用域，但是又会带来空指针的问题
+
+- 在jdk7中在try的后面可以增将一个(),在括号中可以定义一个流对象，那么这个流对象的作用域就在try中有效，try中的代码执行完毕，会自动把流对象释放，不用写finally。
+- jdk9新特性 try 前面可以定义流对象 ，在try后面()中可以直接引入流对象的名称(变量名)
+
+### Properties 集合
+
+- 可以使用Properties集合中的方法store，把集合中的临时数据，持久化写入到硬盘中存储
+
+- 可以使用Properties集合中的方法load，把硬盘中保存的文件(键值对),读取到集合中使用
+- 
 
