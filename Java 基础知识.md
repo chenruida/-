@@ -1096,3 +1096,165 @@ flush 刷新进去后还可以继续使用，close之后就不能继续使用了
 - 可以使用Properties集合中的方法load，把硬盘中保存的文件(键值对),读取到集合中使用
 - 
 
+## 函数式接口
+
+函数式接口在Java中是指：有且仅有一个抽象方法的接口。
+
+只要确保接口中有且仅有一个抽象方法即可：
+
+```java
+修饰符 interface 接口名称 {
+	public abstract 返回值类型 方法名称(可选参数信息);
+		// 其他非抽象方法内容
+}
+```
+
+由于接口当中抽象方法的public abstract 是可以省略的，所以定义一个函数式接口很简单：
+
+```java
+public interface MyFunctionalInterface {
+	void myMethod();
+}
+```
+
+### @FunctionalInterface注解
+
+一旦使用该注解来定义接口，编译器将会强制检查该接口是否确实有且仅有一个抽象方法，否则将会报错。需要注
+意的是，即使不使用该注解，只要满足函数式接口的定义，这仍然是一个函数式接口，使用起来都一样。
+
+### 常用函数表达式接口
+
+- Supplier接口
+
+  - java.util.function.Supplier<T> 接口仅包含一个无参的方法： T get() 。用来获取一个泛型参数指定类型的对象数据。由于这是一个函数式接口，这也就意味着对应的Lambda表达式需要“对外提供”一个符合泛型类型的对象数据。
+- Consumer接口
+
+  - java.util.function.Consumer<T> 接口则正好与Supplier接口相反，它不是生产一个数据，而是消费一个数据，其数据类型由泛型决定。
+  - Consumer 接口中包含抽象方法void accept(T t) ，意为消费一个指定泛型的数据
+  - 如果一个方法的参数和返回值全都是Consumer 类型，那么就可以实现效果：消费数据的时候，首先做一个操作，然后再做一个操作，实现组合。而这个方法就是Consumer 接口中的default方法andThen 。
+- Predicate接口
+
+  - 有时候我们需要对某种类型的数据进行判断，从而得到一个boolean值结果。这时可以使用java.util.function.Predicate<T> 接口。
+  - 抽象方法：test
+  - 默认方法：and
+    - 既然是条件判断，就会存在与、或、非三种常见的逻辑关系。其中将两个Predicate 条件使用“与”逻辑连接起来实现“并且”的效果时，可以使用default方法and 。
+  - 默认方法：or
+    - 与and 的“与”类似，默认方法or 实现逻辑关系中的“或”。
+  - 默认方法：negate
+    - 它是执行了test方法之后，对结果boolean值进行“!”取反
+- Function接口
+- 抽象方法：apply
+    - Function 接口中最主要的抽象方法为： R apply(T t) ，根据类型T的参数获取类型R的结果。
+  - 默认方法：andThen
+    - Function 接口中有一个默认的andThen 方法，用来进行组合操作
+
+## Stream流
+
+#### 流式思想概述
+
+当使用一个流的时候，通常包括三个基本步骤：获取一个数据源（source）→ 数据转换→执行操作获取想要的结
+果，每次转换原有 Stream 对象不改变，返回一个新的 Stream 对象（可以有多次转换），这就允许对其操作可以
+像链条一样排列，变成一个管道。
+
+### 获取流
+
+java.util.stream.Stream<T> 是Java 8新加入的最常用的流接口。（这并不是一个函数式接口。）
+获取一个流非常简单，有以下几种常用的方式：
+
+1. 所有的Collection 集合都可以通过stream 默认方法获取流；
+2. Stream 接口的静态方法of 可以获取数组对应的流。
+
+### 常用方法
+
+方法可以被分成两种：
+
+1. 延迟方法：返回值类型仍然是Stream 接口自身类型的方法，因此支持链式调用。（除了终结方法外，其余方法均为延迟方法。)
+2. 终结方法：返回值类型不再是Stream 接口自身类型的方法，因此不再支持类似StringBuilder 那样的链式调用。本小节中，终结方法包括count 和forEach 方法。
+
+- 逐一处理：forEach
+  - void forEach(Consumer<? super T> action);
+  - 该方法接收一个Consumer 接口函数，会将每一个流元素交给该函数进行处理。
+- 过滤：filter
+  - 可以通过filter 方法将一个流转换成另一个子集流。方法签名：Stream<T> filter(Predicate<? super T> predicate);
+- 映射：map
+  - 如果需要将流中的元素映射到另一个流中，可以使用map 方法。
+  - <R> Stream<R> map(Function<? super T, ? extends R> mapper);
+- 统计个数：count
+  - long count();
+  - 终结方法，不能再继续调用Stream流中的其他方法了
+- 取用前几个：limit
+  - Stream<T> limit(long maxSize);
+- 跳过前几个：skip
+  - Stream<T> skip(long n);
+- 组合：concat
+  - 如果有两个流，希望合并成为一个流，那么可以使用Stream 接口的静态方法concat ：
+  - static <T> Stream<T> concat(Stream<? extends T> a, Stream<? extends T> b)
+
+### 特点
+
+- Stream流属于管道流，只能被消费（使用一次）
+- 第一个Stream流调用完毕，数据就会流转到下一个Stream上，而这时第一个stream流已经关闭了
+
+## 方法引用
+
+通过对象名引用成员方法
+
+- 前提是对象名是已经存在的，成员方法也是存在的就可以用对象名来引用成员方法
+
+## Junit 单元测试
+
+* 测试分类：
+	1. 黑盒测试：不需要写代码，给输入值，看程序是否能够输出期望的值。
+	2. 白盒测试：需要写代码的。关注程序具体的执行流程。
+
+* Junit使用：白盒测试
+	* 步骤：
+		1. 定义一个测试类(测试用例)
+			* 建议：
+				* 测试类名：被测试的类名Test		CalculatorTest
+				* 包名：xxx.xxx.xx.test		cn.itcast.test
+
+		2. 定义测试方法：可以独立运行
+			* 建议：
+				* 方法名：test测试的方法名		testAdd()  
+				* 返回值：void
+				* 参数列表：空参
+
+		3. 给方法加@Test
+		4. 导入junit依赖环境
+
+	* 判定结果：
+		* 红色：失败
+		* 绿色：成功
+		* 一般我们会使用断言操作来处理结果
+			* Assert.assertEquals(期望的结果,运算的结果);
+
+	* 补充：
+		* @Before:
+			* 修饰的方法会在测试方法之前被自动执行
+		* @After:
+			* 修饰的方法会在测试方法执行之后自动被执行
+
+## 反射
+
+* 框架：半成品软件。可以在框架的基础上进行软件开发，简化编码
+* 反射：将类的各个组成部分封装为其他对象，这就是反射机制
+	* 好处：
+		1. 可以在程序运行过程中，操作这些对象。
+		2. 可以解耦，提高程序的可扩展性。
+
+* 获取Class对象的方式：
+	1. Class.forName("全类名")：将字节码文件加载进内存，返回Class对象
+		* 多用于配置文件，将类名定义在配置文件中。读取文件，加载类
+	2. 类名.class：通过类名的属性class获取
+		* 多用于参数的传递
+	3. 对象.getClass()：getClass()方法在Object类中定义着。
+		* 多用于对象的获取字节码的方式
+
+	* 结论：
+		同一个字节码文件(*.class)在一次程序运行过程中，只会被加载一次，不论通过哪一种方式获取的Class对象都是同一个。
+
+
+
+
+
