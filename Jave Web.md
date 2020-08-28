@@ -380,8 +380,11 @@ void shutdownOutput
         2. PreparedStatement      preparedStatement (string sql);
      2. 管理事务
         1. 开启事务 void setAutoCommit(boole) 
+           1. 在connection 之后，sql执行之前
         2. 提交事务 commit()
+           1. sql执行结束后
         3. 回滚事务rollback()
+           1. 在catch里面
 
 3. Statement 执行SQL的对象
 
@@ -400,4 +403,91 @@ void shutdownOutput
          2. String 代表列的名称
 
 5. PrepareStatement 执行SQL对象
+
+   1. SQL注入问题
+      1. 在拼接SQL时，有一些SQL的特殊关键字参与字符串的拼接。会造成安全性问题
+      2. 使用PrepareStatement 对象来解决
+   2. 预编译SQL：参数使用？占位符替代
+   3. 用法：
+      1. 导入驱动jar包
+      2. 注册驱动
+      3. 获取数据库连接对象
+      4. 定义sql
+         1. 参数使用？占位符替代
+      5. 获取执行sql语句的对象 connectio.PrepareStatement (string sql)
+      6. 给？赋值
+         1. 方法setxxx（index.value）
+      7. 执行SQL，接受返回结果
+      8. 处理结果
+      9. 释放资源
+
+
+
+## 数据库连接池
+
+一个存放数据连接的容器（集合）
+
+当系统初始化后，容器被创建，容器会申请一些连接对象，当用户来访问数据库时，从容其中获取连接对象，用户访问完后，会将连接归还给容器。
+
+好处
+
+- 节约资源
+- 用户访问高效
+
+实现：
+
+1. 标准接口DataSource javax.sql包下
+   1. 方法：
+      1. 获取连接 getconnection
+      2. 归还连接 connection.close()
+2. 由厂商实现
+   1. C3P0
+   2. Druid
+
+C3P0使用：
+
+- 步骤
+
+1. 导入jar包
+2. 配置文件
+   1. c3p0.properties或c3p0-config.xml
+   2. 直接放在src目录下
+3. 创建核心对象 comboPooledDataSource
+4. 获取连接 getconnection
+
+Driud:
+
+1. 导入jar包 Druid
+2. 定义配置文件
+   1. 是properties形式的
+   2. 可以任意名称，任意目录
+3. 加载配置文件
+4. 获取数据库连接池对象 通过工厂类获取 DriuoData
+5. 获取连接 getConnection
+
+### JDBCTemplate
+
+Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的开发
+
+步骤：
+
+1. 导入Jar包
+
+2. 创建JdbcTemplate对象。依赖于数据源DataSource
+
+3. 调用JdbcTemplate的方法来完成CURD的操作
+
+   1. update（）执行DML语句。增删改语句
+   2. queryForMap() 查询结果将结果集封装到map集合
+      1. 只能有一条
+   3. queryForList()  查询结果将结果封装为list集合
+      1. 将每一条记录封装成map，然后装到List中
+      2. query() 查询结果，将结果封装为Javabean对象、
+         1. query 使用数据到new BeanPropertyRowMapper<类型>（类型.class）
+   4. queryForObject 查询结果，将结果封装为对象
+      1. 聚合函数
+
+   ## Web概念基础
+
+   
 
