@@ -535,6 +535,49 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
      1. 直接再html标签上，指定事件的属性（操作），属性值就是js代码
         1. 时间：onclick--单击事件
 
+   ### BOM
+
+   ![](.\picture\BOM.png)
+
+   1. 组成：
+      1. ==Window 窗口对象==
+      2. Navigator浏览器对象
+      3. Screen 显示器
+      4. ==History 历史记录==
+      5. ==Location 地址栏对象==
+   2. 用法
+      1. Window 窗口对象 
+         1. 创建
+         2. 方法
+            1. 与弹出框有关的方法
+               1. alter 警告框
+               2. confirm 确认取消对话框
+                  - 返回 true 或 false
+               3. prompt 输入对话框
+                  - 返回用户输入的值
+            2. 与打开关闭有关的方法
+               1. close()
+               2. open()
+                  - 返回一个新的Windwows对象
+            3. 与定时器有关的方法
+               1. setTimeOut("method()"，时间) setTimeOut(method，时间)
+                  - 返回唯一标识，用于取消
+               2. clearTimeout(id)
+               3. setInterval("method()"，时间) setInterval(method，时间)
+               4. clearInterval
+         3. 属性
+            1. 获取其他BOM对象
+            2. 
+         4. 特点
+            1. Window对象不用创建，window使用。window.方法名();
+            2. windows 可以省略 方法名
+      2. History 历史记录
+         1. 
+
+   
+
+   
+
    
 
    
