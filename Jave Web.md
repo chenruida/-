@@ -518,14 +518,66 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
 
    ### DOM
 
+   文档对象模型
+
+   将标记语言的各个组成部分，封装成对象。可以使用这些对象，对标记语言进行CRUD的操作
+
+   W3C DOM标准被分为3个部分。定义了访问HTML和XML的标准
+
+   1. 核心DOM 针对任何结构化文档的标准模型
+      - Doucment 文档对象
+      - Element 元素对象
+      - Attribute 属性对象
+      - Text 文本对象
+      - Comment 注释对象
+      - Node 节点对象 其他五个的父对象
+   2. XML DOM 针对XML文档的标准模型
+   3. HTML DOM 针对HTML文档的标准模型
+
+   #### 核心DOM模型
+
+   ##### Document
+
    - 功能：控制html文档内容
-   - 代码：获取页面标签（元素）对象 Element
-     - document.getElementById("id值")
+   - 方法：
+     1. 获取Element对象：
+        1. document.getElementById("id值") 根据id值获取页面标签（元素）对象 Element
+        2. getElementsByTagName("Tag值")  返回值是一个元素数组
+        3. getElementsByClassName(calss) 根据class属性值获取元素对象们
+     2. 创建其他DOM对象
+        1. createAttribute(name)
+        2. createComment()
+        3. createElement()
+        4. createTextNode()
+
+   ##### Element
+
    - 操作Element对象
      - 明确获取的对象是哪一个
      - 查看API文档，找其中有哪些属性可以设置
-   - 修改标签体内容
-     - 属性：innerHTML
+       - removeAttribute() 删除属性
+       - setAttribute() 设置属性
+
+   ##### Node
+
+   节点对象可以使元素节点、属性节点、文本节点、
+
+   - 特点：所有DOM对象都可以被认为是一个节点
+   - 方法
+     - CRUD DOM树
+       - appendChild()：向节点的子节点列表的结尾添加心得子节点
+       - removeChild()：删除（并返回）当前节点的指定子节点
+       - replaceChild()：用新节点替换一个子节点
+   - 属性
+     - 返回当前节点的父节点
+
+   #### HTML DOM
+
+   修改标签体内容
+
+   - 属性：innerHTML
+
+   使用html元素的属性
 
    ### 事件
 
@@ -572,7 +624,262 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
             1. Window对象不用创建，window使用。window.方法名();
             2. windows 可以省略 方法名
       2. History 历史记录
-         1. 
+
+   #### 事件监听机制
+
+   某些组件被执行了某些操作后，触发某些代码的执行
+
+   - 事件：某些操作，单击，双击。。。。
+     1. 点击事件
+        1. onclick 单击事件
+        2. ondblclick 双击事件
+     2. 焦点事件
+        1. onblur 失去焦点
+           - 一般用于表单校验
+        2. onfocus 获得焦点
+     3. 加载时间
+        1. onload 页面或图像加载完成
+           - 
+     4. 鼠标事件
+        1. onmousedown 鼠标被按下
+        2. onmouseup 鼠标被松开
+        3. onmousemove 鼠标被移动
+        4. onmouseover 鼠标一到某元素上
+        5. onmouseout 鼠标从某元素移开
+     5. 键盘事件
+        1. onkeydown 某个键盘按键被按下
+        2. onkeyup 某个键盘按键被松开
+        3. onkeypress 某个键盘按键陪按下并松开
+     6. 选中和改变
+        1. onchange 与内容被改变
+        2. onselect 文本被选中
+     7. 表单事件
+        1. onsubmit 确认按钮被提交
+           - 可以组织表单提交
+             - 方法返回false则表单被组织提交
+        2. onreset 重置按钮被点击
+   - 事件源：组件
+   - 监听器：代码
+   - 注册监听：将事件，事件源，监听器结合在仪器
+
+   ### Bootstrap
+
+   一个前端开发的框架
+
+   好处
+
+   1. 定义了很多css样式和js插件。我们开发人员可以直接使用这些样式和插件
+   2. 响应式布局
+      1. 同一套页面可以兼容不同分辨率的内容
+   3. 快速入门
+      1. 下载BootStrap
+      2. 在项目中将三个文件夹复制
+      3. 创建HTML
+
+   #### 响应式布局
+
+   依赖于栅格系统：将一行平均分为12个格子，可以指定元素占几个格子
+
+   步骤：
+
+   1. 定义容器
+
+      1. container 两边有一定量的留白
+      2. container-fluid 每一种设备都是100%宽度
+
+   2. 定义行
+
+   3. 定义元素。制定该元素在不同的设备设备上，所占的格子数目。样式：col-设备代号-格子数目
+
+      1. 设备代号
+
+         1. xs 超小屏幕（）
+
+         2. sm 平板
+
+         3. md 中等屏幕
+
+         4. lg 大屏幕
+
+   注意事项
+
+      1. 一行中如果格子数超过12，则超出部分自动换行
+      2. 栅格类属性可以向上兼容
+      3.  如果真实设备宽度小雨了设置栅格类属性的设备代码最小值，会一个元素占满一整行
+
+   CSS样式和插件
+
+   按钮
+
+   
+
+## XML
+
+   ### 功能
+
+存储数据
+
+1. 配置文件
+2. 在网络中传输
+
+### 与HTML的区别
+
+1. xml标签都是自定义的，html标签是预定义的
+2. xml语法严格 html语法松散
+3. xml是存储数据，html是展示数据
+
+### 语法
+
+#### 基本语法
+
+1. xml文档后缀名为 .xml
+2. xml第一行必须定义为文档声明
+3. xml文档有且仅有一个根标签
+4. 属性值必须使用引号（单双号都可）引起来
+5. 标签必须关闭
+6. xml标签名区别大小写
+
+#### 组成部分
+
+1. 文档声明
+
+   1. 格式：<?xml 属性列表 ?>
+   2. 属性列表：
+      1. version 版本号 必须
+      2. encoding 编码方式 告知解析引擎，当前文档时用的编码方式，默认为ISO-8859-1
+      3. standalone 独立方式
+         1. YES 不依赖其他文件
+
+2. 指令
+
+3. 标签
+
+   1. 数字不能开头
+   2. 不能以数字xml开始
+   3. 名称不能有空格
+
+4. 属性
+
+   1. id属性值唯一
+
+5. 文本
+
+   1. CDATA区 该区域的数据被原样展示
+
+      1. ```xml
+         <![CDATA][数据]>
+         ```
+
+### 约束
+
+规定XML文档的书写规则
+
+分类：
+
+1. DTD 一种简单的约束技术
+2. Schema 一种复杂的约束技术
+
+#### DTD
+
+引入
+
+- 内部dtd 约束规则在xml文档中
+- 外部dtd约束的规则定义在外部的dtd文件中
+  - 本地```  <!DOCTYPE 根标签名SYSTEM "约束文件名"> ```
+  - 网络```  <!DOCTYPE 根标签名PUBLIC "约束文件名" "DTD文件的位置URL"> ```
+
+缺陷
+
+- 无法规定属性的内容
+
+#### Schema
+
+引入
+
+1. 填写xml文档的根元素
+2. 引入xsi前缀
+3. 引入xsd文件命名空间
+4. 为每一个xsd约束声明一个前缀，作为前缀
+
+### 解析
+
+思想：
+
+1. DOM 将标记语言文档一次性加载进内存，想成DOM树，可以快速查找
+   - 优点：操作方便，可以对文档进行CRUD所有操作
+   - 缺点：消耗内存
+2. SAX 逐行读取，基于事件驱动的。
+
+   1. 优点：不占内存
+   2. 缺点：只能读取
+
+XML解析器
+
+1. JAXP Sun提供，一般不用
+2. DOM4J
+3. Jsoup
+4. PULL 安卓内置解析器
+
+#### Jsoup
+
+- 步骤
+  1. 导入jar包
+  2. 获取Doucment对象
+     1. parse（URL url,int timeoutMillis）通过网络路径获取指定的html或xml的文档对象
+     2. parse（file path , encoding）
+  3. 获取对应的标签
+- 对象使用
+  - Jsoup 工具类，可以解析html或xml文档，返回Document
+  - Document 文档对象。代表内存中的dom树
+  - Elements 元素Element对象的集合。可以当做ArryList<Element>来适应
+    - 获取子元素对象
+    - 回去属性值
+    - 获取文本内容
+  - Node节点对象
+- 快捷查询
+  - Selector 选择器
+    - Element select(String cssQuery)
+      - 参考
+  - Xpath
+
+## Tomcat
+
+接受用户的请求，处理请求，做出响应
+
+常用的Web服务器
+
+1. webLogic Oracle 大型javaEE服务器 收费
+2. webSphere IBM 大型javaEE服务器 收费
+3. JBOSS JBOSS 大型javaEE服务器 收费
+4. Tomcat Apache基金组织 中小型 仅支持少量的JaveEE规范 Servlet/jsp
+
+### 部署
+
+1. 直接将项目放到webapps目录下
+   - 将项目打包成war包放置到webapp项目
+2. 配置conf/server.xml文件
+   1. 在<host> 标签体中配置```<Context docBase='basePath' path='path'>```
+3. 配置conf/catalina/localhost文件 创建任意名称的xml文件。
+
+### 项目
+
+#### Java动态项目目录结构
+
+- 项目的根目录
+  - WEB-INF目录
+  - web.xml:web项目的核心配置文件
+  - classes目录:放置字节码文件的目录
+  - lib目录 放置依赖的jar包
+
+#### 与IDEA集成，并且创建JavaEE的项目
+
+
+
+
+
+## Servlet
+
+
 
    
 
