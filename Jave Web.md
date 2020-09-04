@@ -879,13 +879,541 @@ XML解析器
 
 ## Servlet
 
+Server applet 运行在服务器端的小程序
+
+- severlet 就是一个接口，定义了Java类被浏览器访问到的规则
+- 将来我们自定义一个类，实现Servlet 覆写方法
+
+### 原理
+
+![image-20200902102653742](\picture\image-20200902102653742.png)
+
+1. 当服务器接收到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet的资源路径
+2. 查找Web.xml文件，是否有对应的<url-pattern>标签体内容
+3. 如果有，则在找到对应的<servlet-class>全类名
+4. tomcat会将字节码文件加载进内存，并且创建其对象
+5. 调用其方法
+
+### Servlet 生命周期（servlet里面的方法）
+
+   ![img](\picture\生命周期.png)
+
+- init 
+  - 何时执行
+    - 默认情况下，第一次被访问时，Servlet被创建
+      - <load-on-startup>的值为负数
+    - 第二种，服务器启动时
+      - <load-on-startup>的值为0或正整数
+    - 在web.xml下修改
+  - init方法只执行一次，说明Servlet在内存中只存在一个对象，说明是单例的
+    - 多个用户访问时，可能存在线程安全问题
+    - 解决：尽量不要在servlet中定义成员变量。即使定义了成员变量，也不要修改该值。
+- service
+  - 每次访问Servlet时，Service方法都会被调用一次
+- destroy
+  - 只有服务器正常关闭时，才会执行destroy方法
+
+### Servlet3.0
+
+- 好处
+  - 支持注解配置，可以不需要web.xml
+- 步骤
+  - 创建JAVAEE项目，选择Servlet版本在3.0上，可以不创建web.xml
+  - 定义一个类，实现servlet接口
+  - 覆写方法
+  - 在类上使用@WebServlet注解，进行配置
+    - @WebServlet("路径")
+
+### Servlet的体系结构
+
+Servlet--接口
+
+​	|
+
+GenricServlet--抽象类
+
+​	|
+
+HttpServlet--抽象类
+
+- GenericServlet 将servlet接口中其他方法做了默认实现，只将service（）方法作为抽象
+  - 将来定义Servlet类时，可以继承GenericServlet,实现service（）方法即可
+- HttpServlet
+
+![image-20200902131712004](\picture\service.png)
+
+对HTTP协议的封装，可以简化操作
+
+1. 定义类继承HttpServlet
+2. 覆写doget() 和 dopost() 方法
+
+### Servlet配置
+
+1. urlPartten:Servlet访问路径
+   1. 一个Servlet可以设置多个路径
+   2. /* 通配符 优先级最低
+
+### IDEA 与 Tomcat
+
+1. IDEA会为每一个Tomcat部署项目单独建立一份配置
+2. 工作空间项目和Tomcat部署的webx项目
+   1. tomcat真正访问的是‘’Tomcat部署的web项目“，“Tomcat部署的web项目”对应着“工作空间项目”的web目录下的所有资源
+   2. WEB-INF目录下的资源不能被浏览器直接访问
 
 
+
+## HTTP
+
+超文本传输协议
+
+### 特点
+
+1. 基于TCP/IP的高级协议
+2. 默认端口号：80
+   1. 基于请求/响应模型的 一次请求对应一次响应
+   2. 无状态的：每次请求之间相互独立，不能交互数据
+
+### 请求消息数据格式
+
+1. 请求行
+
+   ```
+   请求方式 请求url 请求协议/版本
+   GET /login.html HTTP/1.1
+   ```
+
+   - 请求方式
+     - HTTP有七种请求方式，常用的有两种
+       - GET
+         - 请求参数在请求行中，在URL后
+         - 请求的URL长度有限制
+         - 不太安全
+       - POST
+         - 请求参数在请求体中
+         - 长度没限制，比较安全
+
+2. 请求头
+
+   ```
+   请求头名称：请求头值
+   ```
+
+   User-Agent :浏览器信息，解决浏览器的兼容性问题
+
+   Referer:告诉服务器，当前请求从哪里来
+
+   1. 防盗链
+   2. 统计
+
+   Connection: 链接可以被复用
+
+3. 请求空行
+
+   ```
+   空行
+   ```
+
+   分割请求头和请求体
+
+4. 请求体
+
+   ```
+   key=values
+   ```
+
+   封装POST 请求消息的请求参数的
+
+### 响应消息格式
+
+1. 响应行
+
+   ``````
+   协议/版本 响应状态码 状态码描述
+   HTTP/1.1 200 ok
+   ``````
+
+2. 响应头
+
+   ``````
+   响应名称：响应头值
+   ``````
+
+   content-type 服务器告诉客户端本次响应体数据格式以及编码格式
+
+   Content-disposition 服务器告诉客户端以什么格式打开响应体数据
+
+3. 响应空行
+
+4. 响应体
+
+   ``````
+   传输数据
+   ``````
+
+## Request和Respose
+
+原理：
+
+![image-20200902142923486](.\picture\request和response.png)
+
+1. request对象和response对象是由服务器创建的，我们来使用他们
+2. request对象是来获取请求消息，response对象是来设置响应消息
+
+### Requset
+
+#### 继承体系结构
+
+ServletRequest --接口
+
+​				|继承
+
+HttpServletRequest --接口
+
+​				|实现
+
+org.apache.catalina.connector.RequestFacade 类（tomcat）
+
+#### 功能
+
+1. 获取请求消息数据
+
+   1. 获取请求行
+      1. 获取虚拟目录
+         - String getContextPath()
+      2. 获取请求URI
+         - String getRequestURI()
+   2. 获取请求头
+      1. ==String getHeader(String headname) 通过请求头的名称获取请求头的值==
+      2. Enumeration<String> getHeaderNames() 获取所有的请求头的名称
+   3. 获取请求体
+      - 请求体只有POST请求方式才有请求体，在请求体中封装了POST请求的请求参数
+      - 步骤
+        1. 获取流对象（字节流和字符流）
+           1. BufferedReader getReader() 获取字符输入流，只能操作字符数据
+           2. ServletInputStream getInputStream() 
+        2. 再从流对象中获取数据
+
+2. 其他功能
+
+   1. 获取请求数据
+
+      1. ==String getParameter(String name)根据参数名称获取参数值==
+      2. ==string[] getParameterValues(String name) 根据参数名称获取参数值的数组==
+      3. Enumeration<string> getParameterNames()获取所有轻轻地参数名称
+      4. Map<string,string[]> getParameterMap()获取所有参数的map集合
+
+      - 中文乱码
+        - get方式：tomcat8 已经将get方式乱码问题解决了
+        - POST会乱码
+          - 在获取参数前，设置编码request.setCharacterEncoding("utf-8")
+
+   2. 请求转发
+
+      1. 一种在服务器内部资源跳转的方式
+      2. 步骤：
+         1. 通过request对象获取请求转发器对象 
+            - request.getRequsetDispatcher(==path==).forward()
+      3. ==特点==
+         1. 浏览器地址栏不发生变化
+         2. 只能转发到服务器内部资源中
+         3. 转发是一次请求
+
+   3. 共享数据
+
+      - 域对象 一个有作用范围的对象，可以在范围内共享数据
+      - request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据
+      - 方法：
+        - setAttribute(String name.object obj)存储数据
+        - object getAttitude(String name) 通过建获取值
+        - void removeAttribute(String name) 通过键
+
+   4. 获取sevletContext
+
+#### BeanUtila
+
+用于封装JavaBean的
+
+1. JavaBean 标准的Java类
+   1. 要求
+      1. 类必须被public修饰
+      2. 必须提供空参的构造器
+      3. 成员变量必须被Private修饰
+      4. 提供公共setter和getter方法
+   2. 功能：封装数据
+2. 概念
+   1. 属性： setter和getter方法截取后的产物；
+3. 方法：
+   1. setProperty()
+   2. getProperty()
+   3. populate
+
+### Response
+
+#### 方法
+
+1. 设置响应头
+   1. 设置状态码 setStatus(int sc)
+2. 设置响应行
+   1. setHeader(String name,String value);
+3. 设置响应体
+   1. 使用步骤
+      1. 获取输出流
+      2. 使用输出流，将数据输出到客户端
+
+#### 功能
+
+1. 重定向
+
+   1. 资源跳转的方式
+2. response.sendRedirect(path);
+   3. 重定向的特点： redirect
+
+      1. 地址栏路径变换
+   2. 可以访问其他服务器下的资源
+      3. 两次请求
+   4. 转发的特点：forward
+   1. 地址栏路径不变
+   2. 只能访问当前服务器下的资源
+      3. 一次请求，可以使用request对象共享数据
+5. 路径分类
+      1. 相对路径 通过相对路径不可以确定唯一资源
+      2. 绝对路径 通过绝对路径可以确定唯一资源
+         1. 规则：判断是给谁用的
+            1. 给客户端浏览器使用：需要加虚拟目录
+               1. 虚拟目录动态获取 request.getContextPath()
+            2. 给服务器用 不用加虚拟目录
+      
    
-
+   ​     
    
+2. 输出数据
 
-   
+   1. 解决乱码
+      1. response.setContentType("txt/html;charset=utf-8")
+      2. 在获取流之前设置
 
-   
+3. 验证码
+
+### ServletContext 对象
+
+代表整个web应用，可以和程序的容器（服务器）来通信
+
+功能：
+
+1. 获取MIME类型
+   1. MIME类型：在互联网通信中定义的一种文件数据类型
+   2. String getMimeType(String file)
+2. 域对象：共享数据
+   1. 方法
+      1. setAttribute(String name,Object value)
+      2. getAttribute(String name)
+      3. removeAttribute(String name)
+   2. 范围
+      1. 所有用户所有请求的数据
+      2. 生命周期特别长
+3. 获取文件的真实（服务器）路径
+   1. 方法：getRealPath(String path)
+   2. 
+
+## 会话
+
+- 概念:
+
+  一次会话中包含多次请求和响应
+
+  一次会话：浏览器第一次给服务器资源发送请求，会话建立，知道有一方断开为止
+
+- 功能：在一次会话的范围内的多次请求间，共享数据
+- 方式：
+  1. 客户端会话技术 Cookie
+  2. 服务器端会话技术 Session
+
+### Cookie
+
+#### 概念
+
+- 客户端会话技术，将数据保存到客户端
+
+- 快速入门：
+
+1. 创建Cookie对象，绑定数据
+
+   new Cookie(String name,String value)
+
+2. 发送Cookie对象
+
+   response.addCookie(Cookie cookie)
+
+3. 获取Cookie，拿到数据
+
+   1. Cookie[] cookie = request.getCookies();
+
+#### 原理：
+
+​	基于响应头set-cookie和请求头cookie实现
+
+#### 细节：
+
+- 可以创建多个cookie对象，使用response调用多次addCookie方法发送cookie即可
+- 默认浏览器关闭cookie销毁
+- 持久化存储
+  - setMaxAge(int seconds)
+    - 正数 ：将cookies数据写到硬盘的文件中。持久化存储。cookie存活时间
+    - 负数 ：默认值
+    - 零：删除cookie信息
+- 是否支持中文
+  - 在Tomcat 8之前不支持中文，存储会报错
+    - 需要将中文数据转码--一般采用URL编码
+  - Tomcat8之后，可以存储，但是还是不支持特殊字符
+- 共享问题
+  - 同一tomcat服务器
+    - 默认cookie不能共享
+    - setPath("/") 则可共享
+  - 不同cookie能共享吗
+    - setDomain(String path)如果设置一级域名相同，那么多个服务器之间cookie可以共享
+
+#### 特点
+
+1. cookie储存在客户端，不太安全
+2. 浏览器对于单个cookie的大小限制以及同一域名下的数量有限制（20）
+
+#### 作用
+
+1. cookie一般存储少量不太敏感的数据
+2. 在不登录的情况下，完成服务器对客户端的身份识别
+
+### Session
+
+服务器端会话技术，在一次会话的多次请求共享数据
+
+#### 原理
+
+Session的是现实依赖于Cookie的
+
+#### 细节
+
+当客户端关闭后，服务器端不关闭，两次获取session是否是同一个？
+
+- 默认情况不是
+- 如果需要相同，则可以创建Cookie,键为jsessionid,设置最大存活时间，让cookie持久化保存
+
+客户端不关闭，服务器关闭后，两次获取的session是同一个吗？
+
+- 不是同一个，但是要确保数据不丢失
+- session钝化
+  - 在服务器正常关闭之前，将session对象系列化到硬盘上
+- session活化
+  - 在服务器启动后，将senssion文件转化为内存中的session对象即可
+
+#### session什么时候被销毁
+
+1. 服务器关闭
+2. session对象调用30分钟后被自动销毁
+3. 在web.xml中修改
+4. 调用invalidate（）
+
+#### session特点
+
+1. session用于存储一次会话的多次请求的数据，存在服务器端
+2. session可以存储任意类型，任意大小的数据
+
+## JSP
+
+Java server pages Java服务器端页面
+
+- 可以理解为：一个特殊的标签，既可以定义html页面，也可以定义java代码
+
+![image-20200903153335367](.\picture\image-20200903153335367.png)
+
+
+
+==本质是一个Servlet==
+
+### JSP的脚本
+
+jsp定义JAVA代码
+
+1. <% 代码 %>定义Java代码，在service方法中。service方法中可以定义什么，该脚本就可以定义什么
+
+2. <%! 代码 %>定义的java代码，在jsp转换后的java类的成员位置，用的较少
+
+3. <%= 代码 %>定义的java代码，会输出到页面上。输出语句可以定义什么，该脚本就可以定义什么
+
+### 内置对象
+
+在jsp页面上不需要多去和创建，可以直接使用的对象
+
+一共九个对象
+
+1. request
+2. response
+3. out：字符输出流对象。可以将数据输出到页面上。和response.getwriter() 类似
+   1. response.getwriter() 和 out.writer（）的区别
+   2. 在tomcat服务器真正给客户端做出响应前，会先找到response缓冲区数据，再找out缓冲区数据
+   3. response.getWriter() 数据输出永远在out.write()之前
+4. application
+5. pageContext
+6. config
+7. exception
+
+![](D:\用户目录\我的文档\java_learning_notes\picture\微信截图_20200904103318.png)
+
+
+
+### 指令
+
+- 作用：用于配置JSP页面，导入资源文件
+- 格式：
+  - <%@ 指令名称 键1=值1 键2=值2  ... %>
+- 分类
+  - page
+    - 配置JSP 页面
+    - contentType:等同于response.setContentType()
+      - 设置响应体的mime类型及字符集
+      - 设置当前jsp页面的编码（）
+    - import 导包
+    - erropage 当前页面发生异常后，会自动跳转到指定的错误页面
+    - iserrorpage 标志当前页面是否是错误页面
+  - include
+    - 页面包含的。导入页面的资源文件
+  - taglib
+    - 导入资源
+
+### 注释
+
+<%----%>
+
+## MVC
+
+M
+
+V
+
+C
+
+### EL表达式
+
+- 概念expression language 表达式语言
+- 作用 替换和简化jsp页面中java代码的编写
+- 语法：${}
+- 注意 jsp中，默认是支持el表达式的
+  - 直接展示：isElIgnore
+  - \
+- 运算：
+  - 运算符
+    - 空运算符 empty
+  - 获取值
+    - el表达式只能从域对象中获取值
+    - 语法：
+      - ${域名称.键名}：从指定域中获取指定键的值
+
+
+
+
+
+
+
+
+
+
 
