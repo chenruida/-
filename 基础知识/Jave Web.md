@@ -518,27 +518,30 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
 
    ### DOM
 
+   文档对象模型，将标记语言文档的各个组成部分，封装成对象，可以使用这些对象，对标记语言文档进行CURD的操作。
+   
    - 功能：控制html文档内容
    - 代码：获取页面标签（元素）对象 Element
      - document.getElementById("id值")
    - 操作Element对象
      - 明确获取的对象是哪一个
      - 查看API文档，找其中有哪些属性可以设置
-   - 修改标签体内容
+- 修改标签体内容
      - 属性：innerHTML
-
-   ### 事件
-
+- 
+   
+### 事件
+   
    - 功能：某些组件被执行了某些操作后，触发某些代码的执行
-
-   - 如何绑定事件
+   
+- 如何绑定事件
      1. 直接再html标签上，指定事件的属性（操作），属性值就是js代码
-        1. 时间：onclick--单击事件
-
-   ### BOM
-
+     1. 时间：onclick--单击事件
+   
+### BOM
+   
    ![](.\picture\BOM.png)
-
+   
    1. 组成：
       1. ==Window 窗口对象==
       2. Navigator浏览器对象
@@ -567,18 +570,34 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
                4. clearInterval
          3. 属性
             1. 获取其他BOM对象
-            2. 
-         4. 特点
+               2. history
+               2. location
+               3. Navigator
+               4. Screen
+            2. 获取document对象
+               1. 
+      4. 特点
             1. Window对象不用创建，window使用。window.方法名();
-            2. windows 可以省略 方法名
+         2. windows 可以省略 方法名
       2. History 历史记录
-         1. 
-
+   3. Location对象
+         1. 包含当前的URL信息 
+      2. 方法
+            1. reload() 刷新方法
+         3. 属性
+            1. herf 获取herf属性
    
-
    
-
    
-
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
 
