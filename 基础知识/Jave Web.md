@@ -518,20 +518,83 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
 
    ### DOM
 
+<<<<<<< HEAD:基础知识/Jave Web.md
    文档对象模型，将标记语言文档的各个组成部分，封装成对象，可以使用这些对象，对标记语言文档进行CURD的操作。
    
+=======
+   文档对象模型
+
+   将标记语言的各个组成部分，封装成对象。可以使用这些对象，对标记语言进行CRUD的操作
+
+   W3C DOM标准被分为3个部分。定义了访问HTML和XML的标准
+
+   1. 核心DOM 针对任何结构化文档的标准模型
+      - Doucment 文档对象
+      - Element 元素对象
+      - Attribute 属性对象
+      - Text 文本对象
+      - Comment 注释对象
+      - Node 节点对象 其他五个的父对象
+   2. XML DOM 针对XML文档的标准模型
+   3. HTML DOM 针对HTML文档的标准模型
+
+   #### 核心DOM模型
+
+   ##### Document
+
+>>>>>>> a2f1fd47615cff6bc9f24312bb6564b660aaa501:Jave Web.md
    - 功能：控制html文档内容
-   - 代码：获取页面标签（元素）对象 Element
-     - document.getElementById("id值")
+   - 方法：
+     1. 获取Element对象：
+        1. document.getElementById("id值") 根据id值获取页面标签（元素）对象 Element
+        2. getElementsByTagName("Tag值")  返回值是一个元素数组
+        3. getElementsByClassName(calss) 根据class属性值获取元素对象们
+     2. 创建其他DOM对象
+        1. createAttribute(name)
+        2. createComment()
+        3. createElement()
+        4. createTextNode()
+
+   ##### Element
+
    - 操作Element对象
      - 明确获取的对象是哪一个
      - 查看API文档，找其中有哪些属性可以设置
+<<<<<<< HEAD:基础知识/Jave Web.md
 - 修改标签体内容
      - 属性：innerHTML
 - 
    
 ### 事件
    
+=======
+       - removeAttribute() 删除属性
+       - setAttribute() 设置属性
+
+   ##### Node
+
+   节点对象可以使元素节点、属性节点、文本节点、
+
+   - 特点：所有DOM对象都可以被认为是一个节点
+   - 方法
+     - CRUD DOM树
+       - appendChild()：向节点的子节点列表的结尾添加心得子节点
+       - removeChild()：删除（并返回）当前节点的指定子节点
+       - replaceChild()：用新节点替换一个子节点
+   - 属性
+     - 返回当前节点的父节点
+
+   #### HTML DOM
+
+   修改标签体内容
+
+   - 属性：innerHTML
+
+   使用html元素的属性
+
+   ### 事件
+
+>>>>>>> a2f1fd47615cff6bc9f24312bb6564b660aaa501:Jave Web.md
    - 功能：某些组件被执行了某些操作后，触发某些代码的执行
    
 - 如何绑定事件
@@ -580,6 +643,7 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
             1. Window对象不用创建，window使用。window.方法名();
          2. windows 可以省略 方法名
       2. History 历史记录
+<<<<<<< HEAD:基础知识/Jave Web.md
    3. Location对象
          1. 包含当前的URL信息 
       2. 方法
@@ -599,5 +663,878 @@ Spring框架对JDBC的简单封装。提供一个JDBCTemplate对象简化JDBC的
    
    
    
+=======
+
+   #### 事件监听机制
+
+   某些组件被执行了某些操作后，触发某些代码的执行
+
+   - 事件：某些操作，单击，双击。。。。
+     1. 点击事件
+        1. onclick 单击事件
+        2. ondblclick 双击事件
+     2. 焦点事件
+        1. onblur 失去焦点
+           - 一般用于表单校验
+        2. onfocus 获得焦点
+     3. 加载时间
+        1. onload 页面或图像加载完成
+           - 
+     4. 鼠标事件
+        1. onmousedown 鼠标被按下
+        2. onmouseup 鼠标被松开
+        3. onmousemove 鼠标被移动
+        4. onmouseover 鼠标一到某元素上
+        5. onmouseout 鼠标从某元素移开
+     5. 键盘事件
+        1. onkeydown 某个键盘按键被按下
+        2. onkeyup 某个键盘按键被松开
+        3. onkeypress 某个键盘按键陪按下并松开
+     6. 选中和改变
+        1. onchange 与内容被改变
+        2. onselect 文本被选中
+     7. 表单事件
+        1. onsubmit 确认按钮被提交
+           - 可以组织表单提交
+             - 方法返回false则表单被组织提交
+        2. onreset 重置按钮被点击
+   - 事件源：组件
+   - 监听器：代码
+   - 注册监听：将事件，事件源，监听器结合在仪器
+
+   ### Bootstrap
+
+   一个前端开发的框架
+
+   好处
+
+   1. 定义了很多css样式和js插件。我们开发人员可以直接使用这些样式和插件
+   2. 响应式布局
+      1. 同一套页面可以兼容不同分辨率的内容
+   3. 快速入门
+      1. 下载BootStrap
+      2. 在项目中将三个文件夹复制
+      3. 创建HTML
+
+   #### 响应式布局
+
+   依赖于栅格系统：将一行平均分为12个格子，可以指定元素占几个格子
+
+   步骤：
+
+   1. 定义容器
+
+      1. container 两边有一定量的留白
+      2. container-fluid 每一种设备都是100%宽度
+
+   2. 定义行
+
+   3. 定义元素。制定该元素在不同的设备设备上，所占的格子数目。样式：col-设备代号-格子数目
+
+      1. 设备代号
+
+         1. xs 超小屏幕（）
+
+         2. sm 平板
+
+         3. md 中等屏幕
+
+         4. lg 大屏幕
+
+   注意事项
+
+      1. 一行中如果格子数超过12，则超出部分自动换行
+      2. 栅格类属性可以向上兼容
+      3.  如果真实设备宽度小雨了设置栅格类属性的设备代码最小值，会一个元素占满一整行
+
+   CSS样式和插件
+
+   按钮
+
    
+
+## XML
+
+   ### 功能
+
+存储数据
+
+1. 配置文件
+2. 在网络中传输
+
+### 与HTML的区别
+
+1. xml标签都是自定义的，html标签是预定义的
+2. xml语法严格 html语法松散
+3. xml是存储数据，html是展示数据
+
+### 语法
+
+#### 基本语法
+
+1. xml文档后缀名为 .xml
+2. xml第一行必须定义为文档声明
+3. xml文档有且仅有一个根标签
+4. 属性值必须使用引号（单双号都可）引起来
+5. 标签必须关闭
+6. xml标签名区别大小写
+
+#### 组成部分
+
+1. 文档声明
+
+   1. 格式：<?xml 属性列表 ?>
+   2. 属性列表：
+      1. version 版本号 必须
+      2. encoding 编码方式 告知解析引擎，当前文档时用的编码方式，默认为ISO-8859-1
+      3. standalone 独立方式
+         1. YES 不依赖其他文件
+
+2. 指令
+
+3. 标签
+
+   1. 数字不能开头
+   2. 不能以数字xml开始
+   3. 名称不能有空格
+
+4. 属性
+
+   1. id属性值唯一
+
+5. 文本
+
+   1. CDATA区 该区域的数据被原样展示
+
+      1. ```xml
+         <![CDATA][数据]>
+         ```
+
+### 约束
+
+规定XML文档的书写规则
+
+分类：
+
+1. DTD 一种简单的约束技术
+2. Schema 一种复杂的约束技术
+
+#### DTD
+
+引入
+
+- 内部dtd 约束规则在xml文档中
+- 外部dtd约束的规则定义在外部的dtd文件中
+  - 本地```  <!DOCTYPE 根标签名SYSTEM "约束文件名"> ```
+  - 网络```  <!DOCTYPE 根标签名PUBLIC "约束文件名" "DTD文件的位置URL"> ```
+
+缺陷
+
+- 无法规定属性的内容
+
+#### Schema
+
+引入
+
+1. 填写xml文档的根元素
+2. 引入xsi前缀
+3. 引入xsd文件命名空间
+4. 为每一个xsd约束声明一个前缀，作为前缀
+
+### 解析
+
+思想：
+
+1. DOM 将标记语言文档一次性加载进内存，想成DOM树，可以快速查找
+   - 优点：操作方便，可以对文档进行CRUD所有操作
+   - 缺点：消耗内存
+2. SAX 逐行读取，基于事件驱动的。
+
+   1. 优点：不占内存
+   2. 缺点：只能读取
+
+XML解析器
+
+1. JAXP Sun提供，一般不用
+2. DOM4J
+3. Jsoup
+4. PULL 安卓内置解析器
+
+#### Jsoup
+
+- 步骤
+  1. 导入jar包
+  2. 获取Doucment对象
+     1. parse（URL url,int timeoutMillis）通过网络路径获取指定的html或xml的文档对象
+     2. parse（file path , encoding）
+  3. 获取对应的标签
+- 对象使用
+  - Jsoup 工具类，可以解析html或xml文档，返回Document
+  - Document 文档对象。代表内存中的dom树
+  - Elements 元素Element对象的集合。可以当做ArryList<Element>来适应
+    - 获取子元素对象
+    - 回去属性值
+    - 获取文本内容
+  - Node节点对象
+- 快捷查询
+  - Selector 选择器
+    - Element select(String cssQuery)
+      - 参考
+  - Xpath
+
+## Tomcat
+
+接受用户的请求，处理请求，做出响应
+
+常用的Web服务器
+
+1. webLogic Oracle 大型javaEE服务器 收费
+2. webSphere IBM 大型javaEE服务器 收费
+3. JBOSS JBOSS 大型javaEE服务器 收费
+4. Tomcat Apache基金组织 中小型 仅支持少量的JaveEE规范 Servlet/jsp
+
+### 部署
+
+1. 直接将项目放到webapps目录下
+   - 将项目打包成war包放置到webapp项目
+2. 配置conf/server.xml文件
+   1. 在<host> 标签体中配置```<Context docBase='basePath' path='path'>```
+3. 配置conf/catalina/localhost文件 创建任意名称的xml文件。
+
+### 项目
+
+#### Java动态项目目录结构
+
+- 项目的根目录
+  - WEB-INF目录
+  - web.xml:web项目的核心配置文件
+  - classes目录:放置字节码文件的目录
+  - lib目录 放置依赖的jar包
+
+#### 与IDEA集成，并且创建JavaEE的项目
+
+
+
+
+
+## Servlet
+
+Server applet 运行在服务器端的小程序
+
+- severlet 就是一个接口，定义了Java类被浏览器访问到的规则
+- 将来我们自定义一个类，实现Servlet 覆写方法
+
+### 原理
+
+![image-20200902102653742](\picture\image-20200902102653742.png)
+
+1. 当服务器接收到客户端浏览器的请求后，会解析请求URL路径，获取访问的Servlet的资源路径
+2. 查找Web.xml文件，是否有对应的<url-pattern>标签体内容
+3. 如果有，则在找到对应的<servlet-class>全类名
+4. tomcat会将字节码文件加载进内存，并且创建其对象
+5. 调用其方法
+
+### Servlet 生命周期（servlet里面的方法）
+
+   ![img](\picture\生命周期.png)
+
+- init 
+  - 何时执行
+    - 默认情况下，第一次被访问时，Servlet被创建
+      - <load-on-startup>的值为负数
+    - 第二种，服务器启动时
+      - <load-on-startup>的值为0或正整数
+    - 在web.xml下修改
+  - init方法只执行一次，说明Servlet在内存中只存在一个对象，说明是单例的
+    - 多个用户访问时，可能存在线程安全问题
+    - 解决：尽量不要在servlet中定义成员变量。即使定义了成员变量，也不要修改该值。
+- service
+  - 每次访问Servlet时，Service方法都会被调用一次
+- destroy
+  - 只有服务器正常关闭时，才会执行destroy方法
+
+### Servlet3.0
+
+- 好处
+  - 支持注解配置，可以不需要web.xml
+- 步骤
+  - 创建JAVAEE项目，选择Servlet版本在3.0上，可以不创建web.xml
+  - 定义一个类，实现servlet接口
+  - 覆写方法
+  - 在类上使用@WebServlet注解，进行配置
+    - @WebServlet("路径")
+
+### Servlet的体系结构
+
+Servlet--接口
+
+​	|
+
+GenricServlet--抽象类
+
+​	|
+
+HttpServlet--抽象类
+
+- GenericServlet 将servlet接口中其他方法做了默认实现，只将service（）方法作为抽象
+  - 将来定义Servlet类时，可以继承GenericServlet,实现service（）方法即可
+- HttpServlet
+
+![image-20200902131712004](\picture\service.png)
+
+对HTTP协议的封装，可以简化操作
+
+1. 定义类继承HttpServlet
+2. 覆写doget() 和 dopost() 方法
+
+### Servlet配置
+
+1. urlPartten:Servlet访问路径
+   1. 一个Servlet可以设置多个路径
+   2. /* 通配符 优先级最低
+
+### IDEA 与 Tomcat
+
+1. IDEA会为每一个Tomcat部署项目单独建立一份配置
+2. 工作空间项目和Tomcat部署的webx项目
+   1. tomcat真正访问的是‘’Tomcat部署的web项目“，“Tomcat部署的web项目”对应着“工作空间项目”的web目录下的所有资源
+   2. WEB-INF目录下的资源不能被浏览器直接访问
+
+
+
+## HTTP
+
+超文本传输协议
+
+### 特点
+
+1. 基于TCP/IP的高级协议
+2. 默认端口号：80
+   1. 基于请求/响应模型的 一次请求对应一次响应
+   2. 无状态的：每次请求之间相互独立，不能交互数据
+
+### 请求消息数据格式
+
+1. 请求行
+
+   ```
+   请求方式 请求url 请求协议/版本
+   GET /login.html HTTP/1.1
+   ```
+
+   - 请求方式
+     - HTTP有七种请求方式，常用的有两种
+       - GET
+         - 请求参数在请求行中，在URL后
+         - 请求的URL长度有限制
+         - 不太安全
+       - POST
+         - 请求参数在请求体中
+         - 长度没限制，比较安全
+
+2. 请求头
+
+   ```
+   请求头名称：请求头值
+   ```
+
+   User-Agent :浏览器信息，解决浏览器的兼容性问题
+
+   Referer:告诉服务器，当前请求从哪里来
+
+   1. 防盗链
+   2. 统计
+
+   Connection: 链接可以被复用
+
+3. 请求空行
+
+   ```
+   空行
+   ```
+
+   分割请求头和请求体
+
+4. 请求体
+
+   ```
+   key=values
+   ```
+
+   封装POST 请求消息的请求参数的
+
+### 响应消息格式
+
+1. 响应行
+
+   ``````
+   协议/版本 响应状态码 状态码描述
+   HTTP/1.1 200 ok
+   ``````
+
+2. 响应头
+
+   ``````
+   响应名称：响应头值
+   ``````
+
+   content-type 服务器告诉客户端本次响应体数据格式以及编码格式
+
+   Content-disposition 服务器告诉客户端以什么格式打开响应体数据
+
+3. 响应空行
+
+4. 响应体
+
+   ``````
+   传输数据
+   ``````
+
+## Request和Respose
+
+原理：
+
+![image-20200902142923486](.\picture\request和response.png)
+
+1. request对象和response对象是由服务器创建的，我们来使用他们
+2. request对象是来获取请求消息，response对象是来设置响应消息
+
+### Requset
+
+#### 继承体系结构
+
+ServletRequest --接口
+
+​				|继承
+
+HttpServletRequest --接口
+
+​				|实现
+
+org.apache.catalina.connector.RequestFacade 类（tomcat）
+
+#### 功能
+
+1. 获取请求消息数据
+
+   1. 获取请求行
+      1. 获取虚拟目录
+         - String getContextPath()
+      2. 获取请求URI
+         - String getRequestURI()
+   2. 获取请求头
+      1. ==String getHeader(String headname) 通过请求头的名称获取请求头的值==
+      2. Enumeration<String> getHeaderNames() 获取所有的请求头的名称
+   3. 获取请求体
+      - 请求体只有POST请求方式才有请求体，在请求体中封装了POST请求的请求参数
+      - 步骤
+        1. 获取流对象（字节流和字符流）
+           1. BufferedReader getReader() 获取字符输入流，只能操作字符数据
+           2. ServletInputStream getInputStream() 
+        2. 再从流对象中获取数据
+
+2. 其他功能
+
+   1. 获取请求数据
+
+      1. ==String getParameter(String name)根据参数名称获取参数值==
+      2. ==string[] getParameterValues(String name) 根据参数名称获取参数值的数组==
+      3. Enumeration<string> getParameterNames()获取所有轻轻地参数名称
+      4. Map<string,string[]> getParameterMap()获取所有参数的map集合
+
+      - 中文乱码
+        - get方式：tomcat8 已经将get方式乱码问题解决了
+        - POST会乱码
+          - 在获取参数前，设置编码request.setCharacterEncoding("utf-8")
+
+   2. 请求转发
+
+      1. 一种在服务器内部资源跳转的方式
+      2. 步骤：
+         1. 通过request对象获取请求转发器对象 
+            - request.getRequsetDispatcher(==path==).forward()
+      3. ==特点==
+         1. 浏览器地址栏不发生变化
+         2. 只能转发到服务器内部资源中
+         3. 转发是一次请求
+
+   3. 共享数据
+
+      - 域对象 一个有作用范围的对象，可以在范围内共享数据
+      - request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据
+      - 方法：
+        - setAttribute(String name.object obj)存储数据
+        - object getAttitude(String name) 通过建获取值
+        - void removeAttribute(String name) 通过键
+
+   4. 获取sevletContext
+
+#### BeanUtila
+
+用于封装JavaBean的
+
+1. JavaBean 标准的Java类
+   1. 要求
+      1. 类必须被public修饰
+      2. 必须提供空参的构造器
+      3. 成员变量必须被Private修饰
+      4. 提供公共setter和getter方法
+   2. 功能：封装数据
+2. 概念
+   1. 属性： setter和getter方法截取后的产物；
+3. 方法：
+   1. setProperty()
+   2. getProperty()
+   3. populate
+
+### Response
+
+#### 方法
+
+1. 设置响应头
+   1. 设置状态码 setStatus(int sc)
+2. 设置响应行
+   1. setHeader(String name,String value);
+3. 设置响应体
+   1. 使用步骤
+      1. 获取输出流
+      2. 使用输出流，将数据输出到客户端
+
+#### 功能
+
+1. 重定向
+
+   1. 资源跳转的方式
+2. response.sendRedirect(path);
+   3. 重定向的特点： redirect
+
+      1. 地址栏路径变换
+   2. 可以访问其他服务器下的资源
+      3. 两次请求
+   4. 转发的特点：forward
+   1. 地址栏路径不变
+   2. 只能访问当前服务器下的资源
+      3. 一次请求，可以使用request对象共享数据
+5. 路径分类
+      1. 相对路径 通过相对路径不可以确定唯一资源
+      2. 绝对路径 通过绝对路径可以确定唯一资源
+         1. 规则：判断是给谁用的
+            1. 给客户端浏览器使用：需要加虚拟目录
+               1. 虚拟目录动态获取 request.getContextPath()
+            2. 给服务器用 不用加虚拟目录
+      
+      
+>>>>>>> a2f1fd47615cff6bc9f24312bb6564b660aaa501:Jave Web.md
+   
+   ​     
+   
+2. 输出数据
+
+   1. 解决乱码
+      1. response.setContentType("txt/html;charset=utf-8")
+      2. 在获取流之前设置
+
+3. 验证码
+
+### ServletContext 对象
+
+代表整个web应用，可以和程序的容器（服务器）来通信
+
+功能：
+
+1. 获取MIME类型
+   1. MIME类型：在互联网通信中定义的一种文件数据类型
+   2. String getMimeType(String file)
+2. 域对象：共享数据
+   1. 方法
+      1. setAttribute(String name,Object value)
+      2. getAttribute(String name)
+      3. removeAttribute(String name)
+   2. 范围
+      1. 所有用户所有请求的数据
+      2. 生命周期特别长
+3. 获取文件的真实（服务器）路径
+   1. 方法：getRealPath(String path)
+   2. 
+
+## 会话
+
+- 概念:
+
+  一次会话中包含多次请求和响应
+
+  一次会话：浏览器第一次给服务器资源发送请求，会话建立，知道有一方断开为止
+
+- 功能：在一次会话的范围内的多次请求间，共享数据
+- 方式：
+  1. 客户端会话技术 Cookie
+  2. 服务器端会话技术 Session
+
+### Cookie
+
+#### 概念
+
+- 客户端会话技术，将数据保存到客户端
+
+- 快速入门：
+
+1. 创建Cookie对象，绑定数据
+
+   new Cookie(String name,String value)
+
+2. 发送Cookie对象
+
+   response.addCookie(Cookie cookie)
+
+3. 获取Cookie，拿到数据
+
+   1. Cookie[] cookie = request.getCookies();
+
+#### 原理：
+
+​	基于响应头set-cookie和请求头cookie实现
+
+#### 细节：
+
+- 可以创建多个cookie对象，使用response调用多次addCookie方法发送cookie即可
+- 默认浏览器关闭cookie销毁
+- 持久化存储
+  - setMaxAge(int seconds)
+    - 正数 ：将cookies数据写到硬盘的文件中。持久化存储。cookie存活时间
+    - 负数 ：默认值
+    - 零：删除cookie信息
+- 是否支持中文
+  - 在Tomcat 8之前不支持中文，存储会报错
+    - 需要将中文数据转码--一般采用URL编码
+  - Tomcat8之后，可以存储，但是还是不支持特殊字符
+- 共享问题
+  - 同一tomcat服务器
+    - 默认cookie不能共享
+    - setPath("/") 则可共享
+  - 不同cookie能共享吗
+    - setDomain(String path)如果设置一级域名相同，那么多个服务器之间cookie可以共享
+
+#### 特点
+
+1. cookie储存在客户端，不太安全
+2. 浏览器对于单个cookie的大小限制以及同一域名下的数量有限制（20）
+
+#### 作用
+
+1. cookie一般存储少量不太敏感的数据
+2. 在不登录的情况下，完成服务器对客户端的身份识别
+
+### Session
+
+服务器端会话技术，在一次会话的多次请求共享数据
+
+#### 原理
+
+Session的是现实依赖于Cookie的
+
+#### 细节
+
+当客户端关闭后，服务器端不关闭，两次获取session是否是同一个？
+
+- 默认情况不是
+- 如果需要相同，则可以创建Cookie,键为jsessionid,设置最大存活时间，让cookie持久化保存
+
+客户端不关闭，服务器关闭后，两次获取的session是同一个吗？
+
+- 不是同一个，但是要确保数据不丢失
+- session钝化
+  - 在服务器正常关闭之前，将session对象系列化到硬盘上
+- session活化
+  - 在服务器启动后，将senssion文件转化为内存中的session对象即可
+
+#### session什么时候被销毁
+
+1. 服务器关闭
+2. session对象调用30分钟后被自动销毁
+3. 在web.xml中修改
+4. 调用invalidate（）
+
+#### session特点
+
+1. session用于存储一次会话的多次请求的数据，存在服务器端
+2. session可以存储任意类型，任意大小的数据
+
+## JSP
+
+Java server pages Java服务器端页面
+
+- 可以理解为：一个特殊的标签，既可以定义html页面，也可以定义java代码
+
+![image-20200903153335367](.\picture\image-20200903153335367.png)
+
+
+
+==本质是一个Servlet==
+
+### JSP的脚本
+
+jsp定义JAVA代码
+
+1. <% 代码 %>定义Java代码，在service方法中。service方法中可以定义什么，该脚本就可以定义什么
+
+2. <%! 代码 %>定义的java代码，在jsp转换后的java类的成员位置，用的较少
+
+3. <%= 代码 %>定义的java代码，会输出到页面上。输出语句可以定义什么，该脚本就可以定义什么
+
+### 内置对象
+
+在jsp页面上不需要多去和创建，可以直接使用的对象
+
+一共九个对象
+
+1. request
+2. response
+3. out：字符输出流对象。可以将数据输出到页面上。和response.getwriter() 类似
+   1. response.getwriter() 和 out.writer（）的区别
+   2. 在tomcat服务器真正给客户端做出响应前，会先找到response缓冲区数据，再找out缓冲区数据
+   3. response.getWriter() 数据输出永远在out.write()之前
+4. application
+5. pageContext
+6. config
+7. exception
+
+![](D:\用户目录\我的文档\java_learning_notes\picture\微信截图_20200904103318.png)
+
+
+
+### 指令
+
+- 作用：用于配置JSP页面，导入资源文件
+- 格式：
+  - <%@ 指令名称 键1=值1 键2=值2  ... %>
+- 分类
+  - page
+    - 配置JSP 页面
+    - contentType:等同于response.setContentType()
+      - 设置响应体的mime类型及字符集
+      - 设置当前jsp页面的编码（）
+    - import 导包
+    - erropage 当前页面发生异常后，会自动跳转到指定的错误页面
+    - iserrorpage 标志当前页面是否是错误页面
+  - include
+    - 页面包含的。导入页面的资源文件
+  - taglib
+    - 导入资源
+
+### 注释
+
+<%----%>
+
+## MVC
+
+M
+
+V
+
+C
+
+### EL表达式
+
+- 概念expression language 表达式语言
+- 作用 替换和简化jsp页面中java代码的编写
+- 语法：${}
+- 注意 jsp中，默认是支持el表达式的
+  - 直接展示：isElIgnore
+  - \
+- 运算：
+  - 运算符
+    - 空运算符 empty
+  - 获取值
+    - el表达式只能从域对象中获取值
+    - 语法：
+      - ${域名称.键名}：从指定域中获取指定键的值
+
+### JSTL
+
+概念：JSP标准标签库
+
+作用：用于简化和替换jsp页面上的Java代码
+
+步骤：
+
+1. 导入jstl相关的jar包
+2. 引入标签库：taglib指令 <% taglib %>
+3. 使用标签
+
+常用的JSTL标签：
+
+1. if 相当于Java代码的if语句
+2. choose 相当于java代码的switch语句
+3. foreach 相当于java代码的if语句
+
+
+
+## 三层架构
+
+1. 界面层（表示层）：用户看得到的界面。用户可以通过界面上的组件和服务器进行交互
+2. 业务逻辑层：处理业务逻辑。
+3. 数据访问层：操作数据存储文件
+
+## JQuery
+
+js框架
+
+### JQuery对象和Js对象的区别
+
+1. JQuery对象在操作时，更加方便
+2. JQuery对象和js对象方法不通用
+3. 两者相互转换
+   1. jq-------->js ： jq对象[索引]或者 jq对象.get(索引)
+   2. js --------->jq ： $(js对象)
+
+### 选择器
+
+筛选具有相似特征的元素（标签）
+
+## AjAX
+
+1. 概念：
+   - Asynchronous JavaScript And XML  异步的JavaScript和XML
+   - 异步和同步
+     - 同步：客户端必须等待服务器端的响应。在等待的期间客户端不能做其他操作
+     - 异步：客户端不需要等待服务器端的响应。在服务器处理请求的过程中，客户端可以做其他的操作
+   - 无需重新加载页面，更新部分页面内容
+2. 实现方式：
+
+## JSON
+
+存储和交换信息的语法
+
+进行数据的传输
+
+比XML更小更容易解析
+
+### 语法
+
+1. 数据在名称/值对中：json数据是由键值对构成的
+   - 键用引号（单双都行）引起来的，也可以不使用引号
+   - 值取值类型：
+     - 数字
+     - 字符串
+     - 逻辑值（true或false）
+     - 数组
+     - 对象
+
+## Json转java 对象
+
+常见的json解析器
+
+jsonlib 、gson、fastjson、jackson
+
+
+
+## redis
+
+特殊的数据库软件
+
+### 概念
+
+高性能的NOSQL的菲关系型数据库
+
+
 
